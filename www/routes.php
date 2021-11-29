@@ -1,10 +1,10 @@
 <?php
 
-Flight::route('GET /register', function () {
-    Flight::render('templates/register.tpl', null);
+Flight::route('GET /register-candidate', function () {
+    Flight::render('templates/register-candidate.tpl', null);
 });
 
-Flight::route('POST /register', function () {
+Flight::route('POST /register-candidate', function () {
     $pdo = Flight::get('db');
     $data = Flight::request()->data;
     $messages = array();
@@ -41,7 +41,7 @@ Flight::route('POST /register', function () {
             'messages' => $messages,
         );
 
-        Flight::render('templates/register.tpl', $tab);
+        Flight::render('templates/register-candidate.tpl', $tab);
     }
     else {
         // Succès

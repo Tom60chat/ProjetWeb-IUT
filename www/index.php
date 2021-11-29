@@ -1,8 +1,8 @@
 <?php
-require '../../includes/flight/Flight.php';
-require '../../includes/smarty/libs/Smarty.class.php';
+require '../includes/flight/Flight.php';
+require '../includes/smarty/libs/Smarty.class.php';
 require './routes.php';
-require('../../includes/pdo.php');
+require('../includes/pdo.php');
 
 session_start();
 
