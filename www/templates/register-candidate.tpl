@@ -17,33 +17,42 @@
         <h2>Enregistrement candidat</h2>
 
         <form class="mb-3 row" action="./register" method="post">
+
+            <!-- Nom du groupe -->
             <div class="mb-3">
-                <label for="Nom" class="form-label">Nom :</label>
-                <input type="text" class="form-control" name="Nom" id="Nom" value="{$data.Nom|escape|default:''}" placeholder="Nom"><br>
-                {if !empty($messages.Nom)}
-                {$messages.Nom}<br>
-                {/if}
+                <label for="NomGrp" class="form-label">Nom du groupe :</label>
+                <input type="text" class="form-control" name="NomGrp" id="NomGrp" value="{$data.NomGrp|escape|default:''}" placeholder="TheGroupe">
+                <p>{$messages.Nom|escape|default:''}</p>
             </div>
+
+            <!-- Département d'origine -->
             <div class="mb-3">
-                <label for="Email" class="form-label">Email</label>
-                <input type="email" class="form-control" name="Email" id="Email" value="{$data.Email|escape|default:''}" placeholder="nom@domaine.fr"><br>
-                {if !empty($messages.Email)}
-                    {$messages.Email}<br>
-                {/if}
+                <label for="" class="form-label">Département d'origine</label>
+                <input type="email" class="form-control" name="Email" id="Email" value="{$data.Email|escape|default:''}" placeholder="nom@domaine.fr">
+                <select name="" id="">
+                    <option value="">Choisissez votre département</option>
+                    {foreach}
+                        <option value=""></option>
+                    {/foreach}
+                </select>
+                <p>{$messages.Email|escape|default:''}</p>
             </div>
+
+            <!-- Type de scène -->
             <div class="mb-3">
                 <label for="Motdepasse" class="form-label">MotDepasse</label>
-                <input type="password" class="form-control" name="Motdepasse" id="Motdepasse" value="{$data.Motdepasse|escape|default:''}" placeholder="M0nM0ts2Pass1"><br>
-                {if !empty($messages.Motdepasse)}
-                    {$messages.Motdepasse}<br>
-                {/if}
+                <input type="password" class="form-control" name="Motdepasse" id="Motdepasse" value="{$data.Motdepasse|escape|default:''}" placeholder="M0nM0ts2Pass1">
+                <p>{$messages.Motdepasse|escape|default:''}</p>
             </div>
+
+            <!-- Envoyer -->
             <div class="col-auto">
-                <button type="submit" class="btn btn-primary mb-3">Sign in</button>
+                <button type="submit" class="btn btn-primary mb-3">Envoyer</button>
             </div>
         </form>
     </div>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>
