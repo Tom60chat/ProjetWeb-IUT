@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 29 nov. 2021 à 08:40
+-- Généré le : jeu. 02 déc. 2021 à 09:59
 -- Version du serveur : 5.7.33
 -- Version de PHP : 7.4.19
 
@@ -30,6 +30,15 @@ SET time_zone = "+00:00";
 CREATE TABLE `scene` (
   `type_scene` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `scene`
+--
+
+INSERT INTO `scene` (`type_scene`) VALUES
+('Acoustique/Folk'),
+('Amplifié/Rock'),
+('Tribute');
 
 --
 -- Index pour les tables déchargées
