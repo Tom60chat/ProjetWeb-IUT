@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 29 nov. 2021 à 08:41
+-- Généré le : lun. 06 déc. 2021 à 14:15
 -- Version du serveur : 5.7.33
 -- Version de PHP : 7.4.19
 
@@ -28,8 +28,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `utilisateur` (
+  `adresse_mail` varchar(250) NOT NULL,
+  `motdepasse` varchar(250) NOT NULL,
   `type_utilisateur` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`adresse_mail`, `motdepasse`, `type_utilisateur`) VALUES
+('admin', '$2y$10$uRraEUTeM.CuedbbG1fveOV006aAd90ZOWfVIEFzzlpOUgIQGM.3q', 'admin');
 
 --
 -- Index pour les tables déchargées
@@ -39,7 +48,7 @@ CREATE TABLE `utilisateur` (
 -- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  ADD PRIMARY KEY (`type_utilisateur`);
+  ADD PRIMARY KEY (`adresse_mail`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
