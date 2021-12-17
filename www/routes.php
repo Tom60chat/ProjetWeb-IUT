@@ -1,7 +1,24 @@
 <?php
 
 Flight::route('GET /register-candidate', function () {
-    Flight::render('templates/register-candidate.tpl', null);
+    $pdo = Flight::get('db');
+    $depQuery = $pdo->query('select num_departement,nom_departement from departement');
+    $sceneQuery = $pdo->query('select id_scene,type_scene from scene');
+    $genreQuery = $pdo->query('select id,nom from genre');
+
+    $dep = $depQuery->fetchAll();
+    $scene = $sceneQuery -> fetchAll();
+    $style = $genreQuery-> fetchAll();
+
+    $tab = array(
+        "listeDep" => $dep,
+        "listeScene" => $scene,
+        'listeStyle' => $style,
+        "data" => array(
+        )
+    );
+
+    Flight::render('templates/register-candidate.tpl', $tab);
 });
 
 Flight::route('POST /register-candidate', function () {
@@ -36,7 +53,17 @@ Flight::route('POST /register-candidate', function () {
 
     // Écheque
     if (count($messages) > 0) {
+        $depQuery = $pdo->query('select num_departement,nom_departement from departement');
+        $sceneQuery = $pdo->query('select id_scene,type_scene from scene');
+        $genreQuery = $pdo->query('select id,nom from genre');
+        $dep = $depQuery->fetchAll();
+        $scene = $sceneQuery->fetchAll();
+        $style = $genreQuery-> fetchAll();
+
         $tab = array(
+            "listeDep" => $dep,
+            "listeScene" => $scene,
+            'listeStyle' => $style,
             'data' => $data,
             'messages' => $messages,
         );
