@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : jeu. 02 déc. 2021 à 09:59
+-- Généré le : ven. 17 déc. 2021 à 07:32
 -- Version du serveur : 5.7.33
 -- Version de PHP : 7.4.19
 
@@ -28,6 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `scene` (
+  `id_scene` int(2) NOT NULL,
   `type_scene` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -35,10 +36,10 @@ CREATE TABLE `scene` (
 -- Déchargement des données de la table `scene`
 --
 
-INSERT INTO `scene` (`type_scene`) VALUES
-('Acoustique/Folk'),
-('Amplifié/Rock'),
-('Tribute');
+INSERT INTO `scene` (`id_scene`, `type_scene`) VALUES
+(1, 'Acoustique/Folk'),
+(2, 'Amplifié/Rock'),
+(3, 'Tribute');
 
 --
 -- Index pour les tables déchargées
@@ -48,7 +49,7 @@ INSERT INTO `scene` (`type_scene`) VALUES
 -- Index pour la table `scene`
 --
 ALTER TABLE `scene`
-  ADD PRIMARY KEY (`type_scene`);
+  ADD PRIMARY KEY (`id_scene`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
