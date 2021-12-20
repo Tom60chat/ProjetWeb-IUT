@@ -18,13 +18,6 @@
 
         <form class="mb-3 row" action="./register" method="post">
             <div class="mb-3">
-                <label for="Nom" class="form-label">Nom :</label>
-                <input type="text" class="form-control" name="Nom" id="Nom" value="{$data.Nom|escape|default:''}" placeholder="Nom"><br>
-                {if !empty($messages.Nom)}
-                {$messages.Nom}<br>
-                {/if}
-            </div>
-            <div class="mb-3">
                 <label for="Email" class="form-label">Email</label>
                 <input type="email" class="form-control" name="Email" id="Email" value="{$data.Email|escape|default:''}" placeholder="nom@domaine.fr"><br>
                 {if !empty($messages.Email)}
