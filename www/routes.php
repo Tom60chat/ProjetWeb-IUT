@@ -439,3 +439,19 @@ Flight::route('/candidate-@idgroupe', function($idgroupe){
         Flight::render('templates/candidate.tpl', array('groupe'=>$groupe,'session'=>$_SESSION));
     }
 });
+
+Flight::route('/liste-candidate',function(){
+    //cette page est accessible seulement par les utilisaeurs de type admin
+    if($_SESSION['user']['type']=='admin')
+    {
+        //on prépare et éxecute la requête sql pour obtenir les informations nécéssaires pour afficher les candidatures
+        $req=Flight::get('db')->prepare('SELECT distinct num_groupe, nom_groupe, departement_groupe, ville_representant, type_scene, style_groupe, annee_crea_groupe, presentation_groupe, experience_groupe FROM candidature');
+        $req->execute();
+        //on convertit et on met le résultat de la requête dans un tableau
+        $groupes=$req->fetchAll();
+        Flight::render('templates/liste-candidate.tpl', array('groupes'=>$groupes,'session'=>$_SESSION['user']));
+    }
+    else{
+        Flight::redirect('/');
+    }
+});
