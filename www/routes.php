@@ -50,6 +50,26 @@ Flight::route('POST /register', function () {
     }
 });
 
+// Page register-candidate
+Flight::route('GET /register-candidate', function () {
+    $pdo = Flight::get('db'); // Récupérer la BDD
+
+    // Si non connecter
+    if (empty($_SESSION))
+        Flight::redirect("./login");
+
+    // Récupération des listes
+    $depQuery = $pdo->query('select num_departement,nom_departement from departement');
+    $sceneQuery = $pdo->query('select id_scene,type_scene from scene');
+
+    $dep = $depQuery->fetchAll();
+    $scene = $sceneQuery -> fetchAll();
+
+    $tab = array(
+        "listeDep" => $dep,
+        "listeScene" => $scene
+    );
+
     // Afficher register-candidate
     Flight::render('templates/register-candidate.tpl', $tab);
 });
@@ -342,7 +362,7 @@ Flight::route('POST /login', function () {
 
     // Succès
     if (count($messages) == 0) {
-        $req_account = $pdo->prepare("SELECT Motdepasse from utilisateur where adresse_mail = :email");
+        $req_account = $pdo->prepare("select Nom, Motdepasse from utilisateur where adresse_mail = :email");
         $req_account->execute(
             array(
                 ":email" => $data->Email
