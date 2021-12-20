@@ -12,7 +12,7 @@
         <h4>Site officiel du festival IUT</h4>
         <br>
         {*Affichage de liens différent si l'utilisateur est connecté ou non*}
-        {if !isset($session.user)}
+        {if !isset($session.user) || empty($_SESSION)}
             {*Affichage des liens d'inscription et de connexion*}
             <p>Vous voulez participer au festival ? <a href=./register>Inscrivez-vous</a></p>
             <p>Déja inscrit ? <a href=./login >Connectez-vous</a></p>
