@@ -449,9 +449,25 @@ Flight::route('/liste-candidate',function(){
         $req->execute();
         //on convertit et on met le résultat de la requête dans un tableau
         $groupes=$req->fetchAll();
-        Flight::render('templates/liste-candidate.tpl', array('groupes'=>$groupes,'session'=>$_SESSION['user']));
+        Flight::render('templates/liste-candidate.tpl', array('groupes'=>$groupes,'session'=>$_SESSION));
     }
     else{
         Flight::redirect('/');
     }
+});
+
+Flight::route('/', function(){
+    //cette page est accessible seulement à un utilisateur de type utilisateur
+    if(isset($_SESSION) && $_SESSION['user']['type']=='utilisateur')
+    {
+        //on prépare et éxecute une requête pour savoir si l'utilisateur a déposé une candidature
+        $req=Flight::get('db')->prepare('SELECT email_representant FROM candidature WHERE email_representant like :email');
+        $req->execute(array(":email" => $_SESSION['user']['Email']));
+        $resultat=$req->fetch();
+        //si la requête renvoie un resultat non vide, l'utilisateur a déposé une candidature
+        if($resultat!=null){
+            $_SESSION['user']['groupeinscrit']='oui';
+        }
+    }
+    Flight::render('templates/index.tpl', array('session'=>$_SESSION));
 });
