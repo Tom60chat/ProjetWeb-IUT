@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 29 nov. 2021 à 08:41
+-- Généré le : lun. 20 déc. 2021 à 11:52
 -- Version du serveur : 5.7.33
 -- Version de PHP : 7.4.19
 
@@ -34,7 +34,6 @@ CREATE TABLE `candidature` (
   `type_scene` varchar(250) DEFAULT NULL,
   `nom_representant` varchar(250) DEFAULT NULL,
   `prenom_representant` varchar(250) DEFAULT NULL,
-  `adresse_representant` varchar(250) DEFAULT NULL,
   `cp_representant` varchar(250) DEFAULT NULL,
   `ville_representant` varchar(250) DEFAULT NULL,
   `email_representant` varchar(250) DEFAULT NULL,
@@ -49,12 +48,9 @@ CREATE TABLE `candidature` (
   `statut` binary(1) DEFAULT NULL,
   `sacem` binary(1) DEFAULT NULL,
   `producteur` binary(1) DEFAULT NULL,
-  `fichiermp3_1` varchar(250) DEFAULT NULL,
-  `fichiermp3_2` varchar(250) DEFAULT NULL,
-  `fichiermp3_3` varchar(250) DEFAULT NULL,
+  `fichiersmp3` varchar(250) DEFAULT NULL,
+  `photos` varchar(250) DEFAULT NULL,
   `pressepdf` varchar(250) DEFAULT NULL,
-  `photo_1` varchar(250) DEFAULT NULL,
-  `photo_2` varchar(250) DEFAULT NULL,
   `fichepdf` varchar(250) DEFAULT NULL,
   `sacempdf` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -68,6 +64,16 @@ CREATE TABLE `candidature` (
 --
 ALTER TABLE `candidature`
   ADD PRIMARY KEY (`num_groupe`);
+
+--
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
+-- AUTO_INCREMENT pour la table `candidature`
+--
+ALTER TABLE `candidature`
+  MODIFY `num_groupe` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

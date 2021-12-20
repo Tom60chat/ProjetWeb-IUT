@@ -3,6 +3,7 @@ require '../includes/flight/Flight.php';
 require '../includes/smarty/libs/Smarty.class.php';
 require './routes.php';
 require('../includes/pdo.php');
+require('../includes/utility.php');
 
 session_start();
 

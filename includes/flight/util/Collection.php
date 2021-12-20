@@ -23,6 +23,10 @@ class Collection implements \ArrayAccess, \Iterator, \Countable, \JsonSerializab
      * @var array
      */
     private $data;
+    /**
+     * @var mixed|null
+     */
+    private $NomGrp;
 
     /**
      * Constructor.

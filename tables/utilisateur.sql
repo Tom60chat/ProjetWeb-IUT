@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : lun. 06 déc. 2021 à 14:15
+-- Généré le : lun. 20 déc. 2021 à 14:06
 -- Version du serveur : 5.7.33
 -- Version de PHP : 7.4.19
 
@@ -38,7 +38,7 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`adresse_mail`, `motdepasse`, `type_utilisateur`) VALUES
-('admin', '$2y$10$uRraEUTeM.CuedbbG1fveOV006aAd90ZOWfVIEFzzlpOUgIQGM.3q', 'admin');
+('admin@admin.fr', '$2y$10$uRraEUTeM.CuedbbG1fveOV006aAd90ZOWfVIEFzzlpOUgIQGM.3q', 'admin');
 
 --
 -- Index pour les tables déchargées

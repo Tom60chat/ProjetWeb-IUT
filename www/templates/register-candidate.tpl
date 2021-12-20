@@ -16,94 +16,94 @@
     <div class="container">
         <h2 class="mb-3">Enregistrement candidat</h2>
 
-        <form class="mb-3 row" action="./register-candidate" method="post">
+        <form class="mb-3 row" enctype="multipart/form-data" action="./register-candidate" method="post">
 
             <!-- Nom du groupe -->
             <div class="mb-3">
                 <label for="NomGrp" class="form-label">Nom du groupe :</label>
                 <input name="NomGrp" id="NomGrp" class="form-control"
                        type="text" value="{$data.NomGrp|escape|default:''}" placeholder="TheGroup">
-                <p>{$messages.NomGrp|escape|default:''}</p>
+                <p class="text-danger">{$messages.NomGrp|escape|default:''}</p>
             </div>
 
-            <!-- Département d'origine ! -->
+            <!-- Département d'origine -->
             <div class="mb-3">
                 <label for="Departement" class="form-label">Département d'origine :</label>
                 <select name="Departement" id="Departement" class="form-select">
                     <option value="">Choisissez votre département</option>
                     {foreach from=$listeDep item=$dep}
-                        <option value="{$dep[0]}" {if $data.Departement|escape|default:0 eq $dep[0]}selected{/if}}>{$dep[1]}</option>
+                        <option value="{$dep[0]}" {if $data.Departement|escape|default:'' eq $dep[0]}selected{/if}>{$dep[1]}</option>
                     {/foreach}
                 </select>
-                <p>{$messages.Departement|escape|default:''}</p>
+                <p class="text-danger">{$messages.Departement|escape|default:''}</p>
             </div>
 
             <!-- Type de scène -->
             <div class="mb-3">
                 <label for="Scene" class="form-label">Type de scène :</label>
-                <input name="Scene" id="Scene" class="form-control"
-                       type="text" value="{$data.Scene|escape|default:''}" placeholder="Rock, Punk, Indie Rock, etc">
-                <p>{$messages.Scene|escape|default:''}</p>
+                <select name="Scene" id="Scene" class="form-select">
+                    <option value="">Choisissez votre style</option>
+                    {foreach from=$listeScene item=$scene}
+                        <option value="{$scene[0]}" {if $data.Scene|escape|default:'' eq $scene[0]}selected{/if}>{$scene[1]}</option>
+                    {/foreach}
+                </select>
+                <p class="text-danger">{$messages.Scene|escape|default:''}</p>
             </div>
 
             <div class="mb-3 divider"></div>
 
             <!-- Représentant du groupe -->
             <div class="mb-3">
-                <label class="form-label">Représentant du groupe :</label>
+                <label class="form-label">Représentant du groupe</label>
 
                 <div class="row g-3">
                     <div class="col-md-6">
-                        <label for="rprsGrp_Nom" class="form-label">Nom</label>
+                        <label for="rprsGrp_Nom" class="form-label">Nom :</label>
                         <input name="rprsGrp_Nom" id="rprsGrp_Nom" class="form-control"
                                type="text" placeholder="John" value="{$data.rprsGrp_Nom|escape|default:''}" >
-                        <p>{$messages.rprsGrp_Nom|escape|default:''}</p>
+                        <p class="text-danger">{$messages.rprsGrp_Nom|escape|default:''}</p>
                     </div>
                     <div class="col-md-6">
-                        <label for="rprsGrp_Prenom" class="form-label">Prénom</label>
+                        <label for="rprsGrp_Prenom" class="form-label">Prénom :</label>
                         <input name="rprsGrp_Prenom" id="rprsGrp_Prenom" class="form-control"
                                type="text" placeholder="Smit" value="{$data.rprsGrp_Prenom|escape|default:''}">
-                        <p>{$messages.rprsGrp_Prenom|escape|default:''}</p>
+                        <p class="text-danger">{$messages.rprsGrp_Prenom|escape|default:''}</p>
                     </div>
                     <div class="col-md-9">
-                        <label for="rprsGrp_Address" class="form-label">Address</label>
+                        <label for="rprsGrp_Address" class="form-label">Villes :</label>
                         <input name="rprsGrp_Address" id="rprsGrp_Address" class="form-control"
-                               type="text" placeholder="1234 Main St" value="{$data.rprsGrp_Address|escape|default:''}">
-                        <p>{$messages.rprsGrp_Address|escape|default:''}</p>
+                               type="text" placeholder="City" value="{$data.rprsGrp_Address|escape|default:''}">
+                        <p class="text-danger">{$messages.rprsGrp_Address|escape|default:''}</p>
                     </div>
                     <div class="col-md-3">
-                        <label for="rprsGrp_CodPost" class="form-label">Code postal</label>
+                        <label for="rprsGrp_CodPost" class="form-label">Code postal :</label>
                         <input name="rprsGrp_CodPost" id="rprsGrp_CodPost" class="form-control"
                                type="number" min="01000" max="99000" step="1" placeholder="XXXXX" value="{$data.rprsGrp_CodPost|escape|default:''}">
-                        <p>{$messages.rprsGrp_CodPost|escape|default:''}</p>
+                        <p class="text-danger">{$messages.rprsGrp_CodPost|escape|default:''}</p>
                     </div>
                     <div class="col-md-6">
-                        <label for="rprsGrp_Email" class="form-label">Email</label>
+                        <label for="rprsGrp_Email" class="form-label">Email :</label>
                         <input name="rprsGrp_Email" id="rprsGrp_Email" class="form-control"
                                type="email" placeholder="nom@domaine.fr" value="{$data.rprsGrp_Email|escape|default:''}">
-                        <p>{$messages.rprsGrp_Email|escape|default:''}</p>
+                        <p class="text-danger">{$messages.rprsGrp_Email|escape|default:''}</p>
                     </div>
                     <div class="col-md-6"">
-                        <label for="rprsGrp_Tel" class="form-label">Téléphone</label>
+                        <label for="rprsGrp_Tel" class="form-label">Téléphone :</label>
                         <input name="rprsGrp_Tel" id="rprsGrp_Tel" class="form-control"
                                type="number" placeholder="0XXXXXXXXX" value="{$data.rprsGrp_Tel|escape|default:''}">
-                    <p>{$messages.rprsGrp_Tel|escape|default:''}</p>
+                    <p class="text-danger">{$messages.rprsGrp_Tel|escape|default:''}</p>
                     </div>
                 </div>
             </div>
 
             <div class="mb-3 divider"></div>
 
-            <!-- Style musical ! -->
+            <!-- Style musical -->
             <div class="mb-3">
                 <label for="Style" class="form-label">Style musical :</label>
-                <select name="Style" id="Style" class="form-select">
-                    <option value="">Choisissez votre style</option>
-                    {foreach from=$listeStyle item=$style}
-                        <option value="{$style[0]}">{$style[1]}</option>
-                    {/foreach}
-                </select>
-                <p>{$messages.Style|escape|default:''}</p>
+                <input name="Style" id="Style" class="form-control"
+                       type="text" value="{$data.Style|escape|default:''}" placeholder="Rock, Punk, Indie Rock, etc">
+                <p class="text-danger">{$messages.Style|escape|default:''}</p>
             </div>
 
             <!-- Année de création -->
@@ -111,7 +111,7 @@
                 <label for="AnneeCreation" class="form-label">Année de création :</label>
                 <input name="AnneeCreation" id="AnneeCreation" class="form-control"
                        type="number" min="1900" max="2099" step="1" placeholder="2016" value="{$data.AnneeCreation|escape|default:''}" />
-                <p>{$messages.AnneeCreation|escape|default:''}</p>
+                <p class="text-danger">{$messages.AnneeCreation|escape|default:''}</p>
             </div>
 
             <div class="mb-3 divider"></div>
@@ -122,16 +122,17 @@
                 <textarea name="Presentation" id="Presentation" class="form-control"
                           rows="3" maxlength="500" placeholder="Nous somme le groupe..."
                 >{$data.Presentation|escape|default:''}</textarea>
-                <p>{$messages.Presentation|escape|default:''}</p>
+                <p class="text-danger">{$messages.Presentation|escape|default:''}</p>
             </div>
 
             <!-- Expériences scéniques -->
             <div class="mb-3">
                 <label for="Exeriences" class="form-label">Expériences scéniques (500 caractères maximum) :</label>
+                <!-- maxlength n'est pas fidèle -->
                 <textarea name="Exeriences" id="Exeriences" class="form-control"
                           rows="3" maxlength="500" placeholder="Nous avons fait..."
                 >{$data.Exeriences|escape|default:''}</textarea>
-                <p>{$messages.Exeriences|escape|default:''}</p>
+                <p class="text-danger">{$messages.Exeriences|escape|default:''}</p>
             </div>
 
             <div class="mb-3 divider"></div>
@@ -141,23 +142,23 @@
                 <label for="URL" class="form-label">Site web ou réseau social :</label>
                 <input name="URL" id="URL" class="form-control"
                        type="url" value="{$data.URL|escape|default:''}" placeholder="https://thegroup.com">
-                <p>{$messages.URL|escape|default:''}</p>
+                <p class="text-danger">{$messages.URL|escape|default:''}</p>
             </div>
 
-            <!-- Adresse page soundcloud -->
+            <!-- Adresse page SoundCloud -->
             <div class="mb-3">
                 <label for="SoundCloud" class="form-label">SoundCloud (facultatif) :</label>
                 <input name="SoundCloud" id="SoundCloud" class="form-control"
                        type="url" value="{$data.SoundCloud|escape|default:''}" placeholder="https://soundcloud.com/thegroup">
-                <p>{$messages.SoundCloud|escape|default:''}</p>
+                <p class="text-danger">{$messages.SoundCloud|escape|default:''}</p>
             </div>
 
-            <!-- Adresse page youtube -->
+            <!-- Adresse page YouTube -->
             <div class="mb-3">
                 <label for="YouTube" class="form-label">YouTube (facultatif) :</label>
                 <input name="YouTube" id="YouTube" class="form-control"
                        type="url" value="{$data.YouTube|escape|default:''}" placeholder="https://www.youtube.com/c/thegroup">
-                <p>{$messages.YouTube|escape|default:''}</p>
+                <p class="text-danger">{$messages.YouTube|escape|default:''}</p>
             </div>
 
             <div class="mb-3 divider"></div>
@@ -188,6 +189,7 @@
                                type="text" placeholder="Instrument" value="{$data.Membre1_Instrument|escape|default:''}">
                     </div>
                 </div>
+                <p class="text-danger">{$messages.Membre1|escape|default:''}</p>
 
                 <div class="row mb-3">
                     <label for="Membre2_Nom" class="col-sm-1 col-form-label">2 : </label>
@@ -204,6 +206,7 @@
                                type="text" placeholder="Instrument" value="{$data.Membre2_Instrument|escape|default:''}">
                     </div>
                 </div>
+                <p class="text-danger">{$messages.Membre2|escape|default:''}</p>
 
                 <div class="row mb-3">
                     <label for="Membre3_Nom" class="col-sm-1 col-form-label">3 : </label>
@@ -220,6 +223,7 @@
                                type="text"placeholder="Instrument" value="{$data.Membre3_Instrument|escape|default:''}">
                     </div>
                 </div>
+                <p class="text-danger">{$messages.Membre3|escape|default:''}</p>
 
                 <div class="row mb-3">
                     <label for="Membre4_Nom" class="col-sm-1 col-form-label">4 : </label>
@@ -236,6 +240,7 @@
                                type="text" placeholder="Instrument" value="{$data.Membre4_Instrument|escape|default:''}">
                     </div>
                 </div>
+                <p class="text-danger">{$messages.Membre4|escape|default:''}</p>
 
                 <div class="row mb-3">
                     <label for="Membre5_Nom" class="col-sm-1 col-form-label">5 : </label>
@@ -252,6 +257,7 @@
                                type="text" placeholder="Instrument" value="{$data.Membre5_Instrument|escape|default:''}">
                     </div>
                 </div>
+                <p class="text-danger">{$messages.Membre5|escape|default:''}</p>
 
                 <div class="row mb-3">
                     <label for="Membre6_Nom" class="col-sm-1 col-form-label">6 : </label>
@@ -268,6 +274,7 @@
                                type="text" placeholder="Instrument" value="{$data.Membre6_Instrument|escape|default:''}">
                     </div>
                 </div>
+                <p class="text-danger">{$messages.Membre6|escape|default:''}</p>
 
                 <div class="row mb-3">
                     <label for="Membre7_Nom" class="col-sm-1 col-form-label">7 : </label>
@@ -284,6 +291,7 @@
                                type="text" placeholder="Instrument" value="{$data.Membre7_Instrument|escape|default:''}">
                     </div>
                 </div>
+                <p class="text-danger">{$messages.Membre7|escape|default:''}</p>
 
                 <div class="row mb-3">
                     <label for="Membre8_Nom" class="col-sm-1 col-form-label">8 : </label>
@@ -300,8 +308,7 @@
                                type="text" placeholder="Instrument" value="{$data.Membre8_Instrument|escape|default:''}">
                     </div>
                 </div>
-
-                <p>{$messages.Membre|escape|default:''}</p>
+                <p class="text-danger">{$messages.Membre8|escape|default:''}</p>
             </div>
 
             <div class="mb-3 divider"></div>
@@ -332,41 +339,41 @@
             <!-- MP3 -->
             <div class="mb-3">
                 <label for="Musiques" class="form-label">Exemples de musique (3 fichiers au format MP3) :</label>
-                <input name="Musiques" id="Musiques" class="form-control"
-                       type="file" accept=".mp3" multiple>
-                <p>{$messages.Musiques|escape|default:''}</p>
+                <input name="Musiques[]" id="Musiques" class="form-control"
+                       type="file" accept="audio/mpeg" multiple>
+                <p class="text-danger">{$messages.Musiques|escape|default:''}</p>
             </div>
 
             <!-- Dossier de presse -->
             <div class="mb-3">
-                <label for="DossierPresse" class="form-label">Dossier de presse (en format PDF, facultatif) :</label>
+                <label for="DossierPresse" class="form-label">Dossier de presse (au format PDF, facultatif) :</label>
                 <input name="DossierPresse" id="DossierPresse" class="form-control"
-                       type="file" accept=".pdf">
-                <p>{$messages.DossierPresse|escape|default:''}</p>
+                       type="file" accept="application/pdf">
+                <p class="text-danger">{$messages.DossierPresse|escape|default:''}</p>
             </div>
 
             <!-- Photos de groupe -->
             <div class="mb-3">
                 <label for="PhotoGrp" class="form-label">Photos de groupe (2 photos avec résolution > 300 dpi) :</label>
-                <input name="PhotoGrp" id="PhotoGrp" class="form-control"
+                <input name="PhotoGrp[]" id="PhotoGrp" class="form-control"
                        type="file" accept="image/*" multiple>
-                <p>{$messages.PhotoGrp|escape|default:''}</p>
+                <p class="text-danger">{$messages.PhotoGrp|escape|default:''}</p>
             </div>
 
             <!-- Fiche technique -->
             <div class="mb-3">
-                <label for="FicheTechnique" class="form-label">Fiche technique (en format PDF) :</label>
+                <label for="FicheTechnique" class="form-label">Fiche technique (au format PDF) :</label>
                 <input name="FicheTechnique" id="FicheTechnique" class="form-control"
-                       type="file" accept=".pdf">
-                <p>{$messages.FicheTechnique|escape|default:''}</p>
+                       type="file" accept="application/pdf">
+                <p class="text-danger">{$messages.FicheTechnique|escape|default:''}</p>
             </div>
 
-            <!-- Document SACEM -->
+            <!-- Document SACEM ou Setlist -->
             <div class="mb-3">
-                <label for="DocSacemSetlist" class="form-label">Document SACEM ou Setlist (en format PDF) :</label>
+                <label for="DocSacemSetlist" class="form-label">Document SACEM ou Setlist (au format PDF) :</label>
                 <input name="DocSacemSetlist" id="DocSacemSetlist" class="form-control"
-                       type="file" accept=".pdf">
-                <p>{$messages.DocSACEM|escape|default:''}</p>
+                       type="file" accept="application/pdf">
+                <p class="text-danger">{$messages.DocSacemSetlist|escape|default:''}</p>
             </div>
 
             <!-- Envoyer -->
