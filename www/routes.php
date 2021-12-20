@@ -467,8 +467,11 @@ Flight::route('/', function(){
         if($resultat!=null){
             $_SESSION['user']['groupeinscrit']='oui';
         }
+        Flight::render('templates/index.tpl', array('session'=>$_SESSION));
     }
-    Flight::render('templates/index.tpl', array('session'=>$_SESSION));
+    else{
+        Flight::render('templates/index.tpl', array('session'=>$_SESSION));
+    }
 });
 
 Flight::route('/liste-user',function(){
