@@ -13,7 +13,7 @@
             <div class="col-4">
                 <div class="text-center">
                     {*Image du groupe*}
-                    <img src="{$groupe.photos['0']}" alt="Image du groupe" class="img-fluid">
+                    <img src="../uploads/{$groupe.nom_groupe}/{$groupe.photos['0']}" alt="Image du groupe" class="img-fluid">
                 </div>
             </div>
         <div class="col-8">
@@ -23,8 +23,7 @@
             {foreach from=$groupe.fichiersmp3 item=$lien}
                 <tr>
                     <td class="text-end">Audio</td>
-                    {$nomfichier=explode("/",$lien)}
-                    <td><audio controls><source src="{$lien}" type="audio/mpeg">{$nomfichier.1} n'est pas suporté</audio><a href="{$lien}">{$nomfichier.1}</a></td>
+                    <td><audio controls><source src="../uploads/{$groupe.nom_groupe}/{$lien}" type="audio/mpeg">{$lien} n'est pas suporté</audio><a href="{$lien}">{$lien}</a></td>
                 </tr>
             {/foreach}
             {*Affichge des informations sur la candidature*}
@@ -75,15 +74,19 @@
             </tr>
             <tr>
                 <td class="text-end">Setlist/SACEM</td>
-                <td><a href={$groupe.sacempdf}>{$groupe.sacempdf}</a></td>
+                <td><a href="../uploads/{$groupe.nom_groupe}/{$groupe.sacempdf}">{$groupe.sacempdf}</a></td>
             </tr>
             <tr>
                 <td class="text-end">Fiche technique</td>
-                <td><a href={$groupe.fichepdf}>{$groupe.fichepdf}</a></td>
+                <td><a href="../uploads/{$groupe.nom_groupe}/{$groupe.fichepdf}">{$groupe.fichepdf}</a></td>
             </tr>
         </table>
         <br>
-        <a href="./"><button type="button" class="btn btn-primary">Retour</button></a>
+        {if $session.user['type']=='utilisateur'}
+            <a href="./"><button type="button" class="btn btn-primary">Retour</button></a>
+        {else}
+            <a href="./liste-candidate"><button type="button" class="btn btn-primary">Retour à la liste</button></a>
+        {/if}
         </div>
     </div>
     </div>
