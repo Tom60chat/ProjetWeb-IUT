@@ -354,7 +354,7 @@ Flight::route('POST /login', function () {
     if (filter_var($data->Email, FILTER_VALIDATE_EMAIL) === false) {
         $messages['Email'] = "Adresse email invalide";
     } else {
-        $emails = $pdo->prepare("select Email from utilisateur where Email = :email");
+        $emails = $pdo->prepare("select adresse_email from utilisateur where adresse_email = :email");
         $emails->execute(
             array(
                 ":email" => $data->Email
