@@ -60,6 +60,10 @@ Flight::route('POST /register', function () {
 Flight::route('GET /register-candidate', function () {
     $pdo = Flight::get('db'); // Récupérer la BDD
 
+    // Si non connecter
+    if (empty($_SESSION))
+        Flight::redirect("./login");
+
     // Récupération des listes
     $depQuery = $pdo->query('select num_departement,nom_departement from departement');
     $sceneQuery = $pdo->query('select id_scene,type_scene from scene');
@@ -83,6 +87,10 @@ Flight::route('POST /register-candidate', function () {
     $ut = new Utility($data);
 
     // == VERIFICATION ==
+
+    // Si non connecter
+    if (empty($_SESSION))
+        Flight::redirect("./login");
 
     // Verification Nom du groupe (text)
     if (!$ut->isEmpty('NomGrp', 'Le nom du groupe est vide.'))
@@ -115,9 +123,9 @@ Flight::route('POST /register-candidate', function () {
     $ut->isValid('rprsGrp_CodPost', 'Le code postal', FILTER_VALIDATE_INT);
     $ut->isEmpty('rprsGrp_CodPost', 'Le code postal est vide.');
 
-    // Verification Représentant du groupe - Email (email)
+    /*// Verification Représentant du groupe - Email (email)
     $ut->isValid('rprsGrp_Email', 'L\'address du représentant', FILTER_VALIDATE_EMAIL);
-    $ut->isEmpty('rprsGrp_Email', 'L\'address du représentant est vide.');
+    $ut->isEmpty('rprsGrp_Email', 'L\'address du représentant est vide.');*/
 
     // Verification Représentant du groupe - Téléphone (number)
     $ut->isValid('rprsGrp_Tel', 'Le numéro de téléphone', FILTER_VALIDATE_INT);
@@ -278,7 +286,7 @@ Flight::route('POST /register-candidate', function () {
                 ":prenom_representant" => $data['rprsGrp_Prenom'],
                 ":cp_representant" => $data['rprsGrp_CodPost'],
                 ":ville_representant" => $data['rprsGrp_Address'],
-                ":email_representant" => $data['rprsGrp_Email'],
+                ":email_representant" => $_SESSION['user']['email'],
                 ":telephone_representant" => $data['rprsGrp_Tel'],
                 ":style_groupe" => $data['Style'],
                 ":annee_crea_groupe" => $data['AnneeCreation'],

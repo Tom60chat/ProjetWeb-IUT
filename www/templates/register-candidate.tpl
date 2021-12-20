@@ -81,12 +81,12 @@
                                type="number" min="01000" max="99000" step="1" placeholder="XXXXX" value="{$data.rprsGrp_CodPost|escape|default:''}">
                         <p class="text-danger">{$messages.rprsGrp_CodPost|escape|default:''}</p>
                     </div>
-                    <div class="col-md-6">
+                    <!--<div class="col-md-6">
                         <label for="rprsGrp_Email" class="form-label">Email :</label>
                         <input name="rprsGrp_Email" id="rprsGrp_Email" class="form-control"
                                type="email" placeholder="nom@domaine.fr" value="{$data.rprsGrp_Email|escape|default:''}">
                         <p class="text-danger">{$messages.rprsGrp_Email|escape|default:''}</p>
-                    </div>
+                    </div>-->
                     <div class="col-md-6"">
                         <label for="rprsGrp_Tel" class="form-label">Téléphone :</label>
                         <input name="rprsGrp_Tel" id="rprsGrp_Tel" class="form-control"
