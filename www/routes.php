@@ -414,7 +414,7 @@ Flight::route('/candidate', function(){
         //on a stocké les liens des 2 images dans un même champ, on les sépare
         $tab2=explode(";",$groupe['photos']);
         $groupe['photos']=$tab2;
-        Flight::render('templates/candidate.tpl', array('groupe'=>$groupe,'session'=>$_SESSION['user']));
+        Flight::render('templates/candidate.tpl', array('groupe'=>$groupe,'session'=>$_SESSION));
     }
 });
 
@@ -436,6 +436,6 @@ Flight::route('/candidate-@idgroupe', function($idgroupe){
         //on a stocké les liens des 2 images dans un même champ, on les sépare
         $tab2=explode(";",$groupe['photos']);
         $groupe['photos']=$tab2;
-        Flight::render('templates/candidate.tpl', array('groupe'=>$groupe,'session'=>$_SESSION['user']));
+        Flight::render('templates/candidate.tpl', array('groupe'=>$groupe,'session'=>$_SESSION));
     }
 });
