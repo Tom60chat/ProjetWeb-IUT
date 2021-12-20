@@ -465,7 +465,7 @@ Flight::route('/liste-candidate',function(){
 });
 
 Flight::route('/', function(){
-    if($_SESSION['user']['type']=='utilisateur' && !empty($_SESSION))
+    if(!empty($_SESSION) && $_SESSION['user']['type']=='utilisateur')
     {
         //on prépare et éxecute une requête pour savoir si l'utilisateur a déposé une candidature
         $req=Flight::get('db')->prepare('SELECT email_representant FROM candidature WHERE email_representant like :email');
