@@ -11,23 +11,17 @@ Flight::route('POST /register', function () {
     $data = Flight::request()->data;
     $messages = array();
 
-    // Verification nom
-    if (empty(trim($data->Nom)))
-        $messages['Nom'] = "Le nom est vide.";
+
     // Verification mail
     if (filter_var($data->Email, FILTER_VALIDATE_EMAIL) === false) {
         $messages['Email'] = "Adresse email invalide";
     } else {
-        $emails = $pdo->prepare("select Email from utilisateur where Email = :email");
-        $emails->execute(
-            array(
-                ":email" => $data->Email
-            )
-        );
+        $emails = $pdo->prepare("SELECT adresse_mail from utilisateur where adresse_mail = :email");
+        $emails->execute(array(":email" => $data->Email) );
         if ($emails->rowCount() > 0)
             $messages['Email'] = "L'email est déjà enregistré.";
     }
-    // Verification MotsDePass
+    // Verification MotsDePasse
     if (empty(trim($data->Motdepasse)))
         $messages['Motdepasse'] = "Le mots de pass est vide.";
     else if (strlen($data->Motdepasse) < 8)
@@ -44,37 +38,18 @@ Flight::route('POST /register', function () {
     }
     else {
         // Succès
-        $req_account = $pdo->prepare("insert into utilisateur values (:nom, :email, :motdepasse,'','')");
+        $req_account = $pdo->prepare("INSERT into utilisateur values (:email, :motdepasse, :utilisateur)");
         $req_account->execute(
             array(
-                ":nom" => $data->Nom,
                 ":email" => $data->Email,
-                ":motdepasse" => password_hash($data->Motdepasse, PASSWORD_DEFAULT)
+                ":motdepasse" => password_hash($data->Motdepasse, PASSWORD_DEFAULT),
+                ":utilisateur"=>"utilisateur"
             )
         );
         Flight::redirect("./success");
     }
 });
 
-// Page register-candidate
-Flight::route('GET /register-candidate', function () {
-    $pdo = Flight::get('db'); // Récupérer la BDD
-
-    // Si non connecter
-    if (empty($_SESSION))
-        Flight::redirect("./login");
-
-    // Récupération des listes
-    $depQuery = $pdo->query('select num_departement,nom_departement from departement');
-    $sceneQuery = $pdo->query('select id_scene,type_scene from scene');
-
-    $dep = $depQuery->fetchAll();
-    $scene = $sceneQuery -> fetchAll();
-
-    $tab = array(
-        "listeDep" => $dep,
-        "listeScene" => $scene
-    );
 
     // Afficher register-candidate
     Flight::render('templates/register-candidate.tpl', $tab);
@@ -352,18 +327,13 @@ Flight::route('POST /login', function () {
 
     // Verification mail
     if (filter_var($data->Email, FILTER_VALIDATE_EMAIL) === false) {
-        $messages['Email'] = "Adresse email invalide";
+    $messages['Email'] = "Adresse email invalide";
     } else {
-        $emails = $pdo->prepare("select adresse_email from utilisateur where adresse_email = :email");
-        $emails->execute(
-            array(
-                ":email" => $data->Email
-            )
-        );
-
-        if ($emails->rowCount() == 0)
-            $messages['Email'] = "Identifiants incorrects";
-    }
+    $emails = $pdo->prepare("SELECT adresse_mail from utilisateur where adresse_mail = :email");
+    $emails->execute(array(":email" => $data->Email) );
+    if ($emails->rowCount() == 0)
+       $messages['Email'] = "L'email incorrect";
+}
 
     // Verification MotDePasse
     if (empty(trim($data->Motdepasse)))
@@ -373,7 +343,7 @@ Flight::route('POST /login', function () {
 
     // Succès
     if (count($messages) == 0) {
-        $req_account = $pdo->prepare("select Nom, Motdepasse from utilisateur where Email = :email");
+        $req_account = $pdo->prepare("select Nom, Motdepasse from utilisateur where adresse_mail = :email");
         $req_account->execute(
             array(
                 ":email" => $data->Email
