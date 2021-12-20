@@ -422,7 +422,7 @@ Flight::route('/candidate', function(){
         //on a stocké les liens des 2 images dans un même champ, on les sépare
         $tab2=explode(";",$groupe['photos']);
         $groupe['photos']=$tab2;
-        Flight::render('templates/candidate.tpl', array('groupe'=>$groupe,'session'=>$_SESSION));
+        Flight::render('templates/candidate.tpl', array('groupe'=>$groupe));
     }
 });
 
@@ -444,7 +444,7 @@ Flight::route('/candidate-@idgroupe', function($idgroupe){
         //on a stocké les liens des 2 images dans un même champ, on les sépare
         $tab2=explode(";",$groupe['photos']);
         $groupe['photos']=$tab2;
-        Flight::render('templates/candidate.tpl', array('groupe'=>$groupe,'session'=>$_SESSION));
+        Flight::render('templates/candidate.tpl', array('groupe'=>$groupe));
     }
 });
 
@@ -457,7 +457,7 @@ Flight::route('/liste-candidate',function(){
         $req->execute();
         //on convertit et on met le résultat de la requête dans un tableau
         $groupes=$req->fetchAll();
-        Flight::render('templates/liste-candidate.tpl', array('groupes'=>$groupes,'session'=>$_SESSION));
+        Flight::render('templates/liste-candidate.tpl', array('groupes'=>$groupes));
     }
     else{
         Flight::redirect('/');
@@ -475,11 +475,8 @@ Flight::route('/', function(){
         if($resultat!=null){
             $_SESSION['user']['groupeinscrit']='oui';
         }
-        Flight::render('templates/index.tpl', array('session'=>$_SESSION));
     }
-    else{
-        Flight::render('templates/index.tpl', array('session'=>$_SESSION));
-    }
+    Flight::render('templates/index.tpl', null);
 });
 
 Flight::route('/liste-user',function(){
@@ -491,7 +488,7 @@ Flight::route('/liste-user',function(){
         $req->execute();
         //on convertit et on met le résultat de la requête dans un tableau
         $utilisateurs=$req->fetchAll();
-        Flight::render('templates/liste-user.tpl', array('utilisateurs'=>$utilisateurs,'session'=>$_SESSION['user']));
+        Flight::render('templates/liste-user.tpl', array('utilisateurs'=>$utilisateurs));
     }
     else{
         Flight::redirect('/');
