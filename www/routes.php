@@ -471,3 +471,19 @@ Flight::route('/', function(){
     }
     Flight::render('templates/index.tpl', array('session'=>$_SESSION));
 });
+
+Flight::route('/liste-user',function(){
+    //cette page est accessible seulement par les utilisaeurs de type admin
+    if($_SESSION['user']['type']=='admin')
+    {
+        //on prépare et éxecute la requête sql pour obtenir les informations nécéssaires pour afficher les candidatures
+        $req=Flight::get('db')->prepare('SELECT distinct adresse_mail, type_utilisateur FROM utilisateur');
+        $req->execute();
+        //on convertit et on met le résultat de la requête dans un tableau
+        $utilisateurs=$req->fetchAll();
+        Flight::render('templates/liste-user.tpl', array('utilisateurs'=>$utilisateurs,'session'=>$_SESSION['user']));
+    }
+    else{
+        Flight::redirect('/');
+    }
+});
