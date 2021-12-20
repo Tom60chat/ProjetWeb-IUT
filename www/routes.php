@@ -519,3 +519,10 @@ Flight::route('/profil', function(){ //page profil, affichage des données utili
         Flight::render('templates/profil.tpl', array('data'=>$cand));
     }
 });
+
+// Page Logout
+Flight::route('GET /logout', function () {
+    session_destroy(); // Fermeture de la session
+    // Rediriger vers Accueil
+    Flight::redirect("./");
+});
