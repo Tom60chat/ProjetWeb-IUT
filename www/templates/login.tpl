@@ -14,7 +14,7 @@
     <body>
         <div class="container">
             <h2>Connexion candidat</h2>
-    
+               <form action="./login" method="post">
                 <div class="mb-3">
                     <label for="Email" class="form-label">Email</label>
                     <input type="email" class="form-control" name="Email" id="Email" value="{$data.Email|escape|default:''}" placeholder="nom@domaine.fr"><br>
