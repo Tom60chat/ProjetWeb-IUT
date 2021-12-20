@@ -1,5 +1,61 @@
 <?php
 
+// Page register
+Flight::route('GET /register', function () {
+    Flight::render('templates/register.tpl', null);
+});
+
+// Page register (POST)
+Flight::route('POST /register', function () {
+    $pdo = Flight::get('db');
+    $data = Flight::request()->data;
+    $messages = array();
+
+    // Verification nom
+    if (empty(trim($data->Nom)))
+        $messages['Nom'] = "Le nom est vide.";
+    // Verification mail
+    if (filter_var($data->Email, FILTER_VALIDATE_EMAIL) === false) {
+        $messages['Email'] = "Adresse email invalide";
+    } else {
+        $emails = $pdo->prepare("select Email from utilisateur where Email = :email");
+        $emails->execute(
+            array(
+                ":email" => $data->Email
+            )
+        );
+        if ($emails->rowCount() > 0)
+            $messages['Email'] = "L'email est déjà enregistré.";
+    }
+    // Verification MotsDePass
+    if (empty(trim($data->Motdepasse)))
+        $messages['Motdepasse'] = "Le mots de pass est vide.";
+    else if (strlen($data->Motdepasse) < 8)
+        $messages['Motdepasse'] = "Le mots de pass est trop court (Minimum 8 caractères).";
+
+    // Échec
+    if (count($messages) > 0) {
+        $tab = array(
+            'data' => $data,
+            'messages' => $messages,
+        );
+
+        Flight::render('templates/register.tpl', $tab);
+    }
+    else {
+        // Succès
+        $req_account = $pdo->prepare("insert into utilisateur values (:nom, :email, :motdepasse,'','')");
+        $req_account->execute(
+            array(
+                ":nom" => $data->Nom,
+                ":email" => $data->Email,
+                ":motdepasse" => password_hash($data->Motdepasse, PASSWORD_DEFAULT)
+            )
+        );
+        Flight::redirect("./success");
+    }
+});
+
 // Page register-candidate
 Flight::route('GET /register-candidate', function () {
     $pdo = Flight::get('db'); // Récupérer la BDD
