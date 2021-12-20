@@ -356,6 +356,10 @@ Flight::route('POST /login', function () {
             $user = $req_account->fetch();
 
             if ($user['Motdepasse'] == password_verify($data->Motdepasse, $user['Motdepasse'])) {
+                $reqtype = $pdo->prepare("SELECT type_utilisateur from utilisateur where adresse_mail = :email");
+                $reqtype->execute(array(":email" => $data->Email) );
+                $type=$reqtype->fetch();
+                $_SESSION['user']['type']==$type;
                 $_SESSION["user"] = array('mail' => $data->Email);
                 Flight::redirect("./");
                 return;
