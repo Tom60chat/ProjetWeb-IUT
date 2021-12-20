@@ -494,3 +494,28 @@ Flight::route('/liste-user',function(){
         Flight::redirect('/');
     }
 });
+
+Flight::route('/profil', function(){ //page profil, affichage des données utilisateurs
+
+    if($_SESSION['user']['type']=='utilisateur' && !empty($_SESSION))
+    {
+        $req=Flight::get('db')->prepare('SELECT email_representant FROM candidature WHERE email_representant like :email');
+        $req->execute(array(":email" => $_SESSION['user']['Email']));
+        $resultat=$req->fetch();
+        if($resultat!=null){
+            $_SESSION['user']['groupeinscrit']='oui';
+        }
+    }
+    if (isset($_SESSION) && !empty($_SESSION) && ($_SESSION['user']['type']==admin || !isset($_SESSION['user']['groupeinscrit']))){ 
+        $req=Flight::get('db')->prepare('SELECT distinct adresse_mail, type_utilisateur FROM utilisateur');
+        $req->execute();
+        $user = $userQuery->fetchAll();
+        Flight::render("profil.tpl",array('email' => $email)); 
+    }
+    else {
+        $req=Flight::get('db')->prepare('SELECT distinct nom_representant, prenom_representant, email_representant, departement_groupe, cp_representant, ville_representant, telephone_representant FROM candidature WHERE email_representant like :email');
+        $req->execute(array(":email" => $_SESSION['user']['Email']));
+        $cand = $candQuery->fetchAll();
+        Flight::render('templates/profil.tpl', array('data'=>$cand));
+    }
+})
