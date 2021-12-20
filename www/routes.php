@@ -50,7 +50,6 @@ Flight::route('POST /register', function () {
     }
 });
 
-
     // Afficher register-candidate
     Flight::render('templates/register-candidate.tpl', $tab);
 });
@@ -343,7 +342,7 @@ Flight::route('POST /login', function () {
 
     // Succès
     if (count($messages) == 0) {
-        $req_account = $pdo->prepare("select Nom, Motdepasse from utilisateur where adresse_mail = :email");
+        $req_account = $pdo->prepare("SELECT Motdepasse from utilisateur where adresse_mail = :email");
         $req_account->execute(
             array(
                 ":email" => $data->Email
@@ -357,8 +356,7 @@ Flight::route('POST /login', function () {
             $user = $req_account->fetch();
 
             if ($user['Motdepasse'] == password_verify($data->Motdepasse, $user['Motdepasse'])) {
-                session_start();
-                $_SESSION["user"] = array('name' => $user['Nome'], 'mail' => $data->Email);
+                $_SESSION["user"] = array('mail' => $data->Email);
                 Flight::redirect("./");
                 return;
             } else
