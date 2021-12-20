@@ -518,4 +518,4 @@ Flight::route('/profil', function(){ //page profil, affichage des données utili
         $cand = $candQuery->fetchAll();
         Flight::render('templates/profil.tpl', array('data'=>$cand));
     }
-})
+});
